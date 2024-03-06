@@ -16,7 +16,7 @@ export default function SetupOptions({ setSetupOptions }){
 
   function handleSubmit(e){
     e.preventDefault()
-    setSetupOptions(formData)
+    setSetupOptions({...formData, time: formData.time*1000})
   }
 
 

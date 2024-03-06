@@ -8,10 +8,12 @@ export default function JoinSession({ setSessionKey }) {
     setFormData(e.target.value)
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault()
+
     setSessionKey(formData)
   }
-  
+
   return(
     <section>
       <form onSubmit={handleSubmit}>

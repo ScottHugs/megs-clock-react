@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
 import TimerDisplay from '../TimerDisplay'
-import io from 'socket.io-client'
 import SetupOptions from "../SetupOptions"
+import OrganiserMenu from "../OrganiserMenu"
 
-const socket=io.connect('http://localhost:3365')
-
-export default function App() {
+export default function App({ socket }) {
 
   const [setupOptions, setSetupOptions] = useState({
     name: "",
@@ -16,6 +14,7 @@ export default function App() {
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [isHostingSession, setIsHostingSession] = useState(false)
   const [isRoundInProgress, setIsRoundInProgress] = useState(false)
+  const [isMenuOn, setIsMenuOn] = useState(false)
 
   const [time, setTime] = useState(setupOptions.time);
 
@@ -41,6 +40,28 @@ export default function App() {
       setIsRoundInProgress(true)
   }
 
+  function startNewTimer() {
+    socket.emit('start_new_timer', time, setupOptions.key)
+  }
+
+  function stopTimer(){
+    socket.emit('stop_timer')
+  }
+
+  function restartTime() {
+    setTime(setupOptions.time)
+    socket.emit('update_time', setupOptions.time, setupOptions.key)
+  }
+
+  function timerToZero() {
+    setTime(0)
+    socket.emit('update_time', 0, setupOptions.key)
+  }
+
+  function handleMenuOn() {
+    setIsMenuOn(!isMenuOn)
+  }
+
 
   return (
     <section className="app">
@@ -48,13 +69,30 @@ export default function App() {
         <Link to='/'>Home</Link>
       </nav>
 
+      { isHostingSession && 
+        <h2>{setupOptions.name}</h2>
+      }
+
       { isHostingSession 
           ? <TimerDisplay remainingMilliseconds={time}/>
-          : <SetupOptions setSetupOptions={setSetupOptions}/>
+          : <SetupOptions setSetupOptions={setSetupOptions} />
       }
       
       { !isRoundInProgress && isHostingSession &&
         <button onClick={startRound}>Start Round</button> 
+      }
+
+      { isRoundInProgress && isHostingSession &&
+        <button onClick={handleMenuOn}>Menu</button>
+      }
+
+      { isMenuOn&&
+      <OrganiserMenu 
+        stopTimer={stopTimer} 
+        startNewTimer={startNewTimer} 
+        restartTime={restartTime} 
+        timerToZero={timerToZero}
+      />
       }
     </section> 
 
