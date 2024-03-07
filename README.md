@@ -3,8 +3,8 @@
 Megs Clock is a countdown timer which can be synchronised and aligned with for personal reference to a specific countdown time. It uses websocket, server side design with the socket.io library. 
 Playing a TCG, starting a group test or playing some weekend warrior soccer and need to know how many precious seconds you have to score 4 goals for the win? Check out Meg's Clock
 
-![Screenshot1](/react-megs-clock/public/screenshot1.png)
-![Screenshot2](/react-megs-clock/public/screenshot2.png)
+![Screenshot1](./public/screenshot1.png)
+![Screenshot2](./public/screenshot2.png)
 
 ## About
 - Create a session with a unique session key for others to join, or...
@@ -15,9 +15,9 @@ Playing a TCG, starting a group test or playing some weekend warrior soccer and 
 - Socket.io was used as it provided many beneficial built in features, primarily the idea of rooms. As the app is simpler in nature, design experience was priorotised over flexibilty and specificity. 
 - Wireframes and Trello kept me on track.
 
-![Wireframe1](/react-megs-clock/public/wireframe1_MClck.jpg)
-![Wireframe2](/react-megs-clock/public/wireframe2_MClck.jpg)
-![Trello](/react-megs-clock/public/trelloToDos.png)
+![Wireframe1](./public/wireframe1_MClck.jpg)
+![Wireframe2](./public/wireframe2_MClck.jpg)
+![Trello](./public/trelloToDos.png)
 
 - Early steps mainly involved research into websockets as that was new for me, then getting MVP which was a serverside clock with a session that another player could join. Then came a few features and the start of some cleanup and attempting to make the clock more robust with a better UX
 
