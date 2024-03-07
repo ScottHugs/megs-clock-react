@@ -1,0 +1,38 @@
+.setup-options {
+  margin-top: 30vh;
+}
+
+.input-wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5px;
+}
+
+input, label{
+  margin: 3px;
+}
+
+input {
+  text-align: start;
+}
+
+label {
+  text-align: end;
+}
+
+.setup-options button {
+  margin: 20px;
+  font-size: 14px;
+}
+
+.rounds-input {
+  width: 45px;
+}
+
+.time-input {
+  width: 40px;  
+}
+
+.time-label {
+  font-size: 13px;
+}

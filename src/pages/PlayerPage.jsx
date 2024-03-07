@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import JoinSession from '../JoinSession'
 import TimerDisplay from '../TimerDisplay'
+import './PlayerPage.css'
 
 
 export default function PlayerPage({ socket }) {
@@ -66,22 +67,26 @@ export default function PlayerPage({ socket }) {
         <Link to='/'>Home</Link>
       </nav>
 
-      { isInSession&&
-          <h2>{sessionName}</h2>
-      }
+      <div className='session-title-area'>
+        { isInSession&&
+            <h2 className='session-name'>{sessionName}</h2>
+        }
+      </div>
 
-      { isEndOfRound&&
-        <h2 className="end-of-round-message">THAT'S TIME!</h2>  
-      }
+      <div className='player-timer'>
+        { isEndOfRound&&
+          <h2 className="end-of-round-message">THAT'S TIME!</h2>  
+        }
 
-      { !isInSession
-        ?< JoinSession setSessionKey={setSessionKey}/> 
-        :< TimerDisplay remainingMilliseconds={time}/> 
-      }
+        { !isInSession
+          ?< JoinSession setSessionKey={setSessionKey}/> 
+          :< TimerDisplay remainingMilliseconds={time}/> 
+        }
 
-      { isRoundsDisplayed&&
-        <h3>Round {currentRound} {roundStartDisplayMessage}</h3>
-      }
+        { isRoundsDisplayed&&
+          <h3>Round {currentRound} {roundStartDisplayMessage}</h3>
+        }
+      </div>
     
     </section>
   )

@@ -1,0 +1,70 @@
+.organiser-page{
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; */
+  height: 90vh;
+}
+
+.session-title-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.session-name {
+  margin: 5px;
+  font-size: 4vw;
+  line-height: 1;
+}
+
+.session-key {
+  margin: 2px;
+  font-size: 1.6vw;
+}
+
+
+.time-round-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-bottom: 5vh;
+}
+
+
+
+.bottom-margin{
+  margin-bottom: 9vh;
+}
+
+.round{
+  font-size: 2vw;
+  margin: 0;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.menu-btn {
+  margin: 5px;
+  background-color: transparent;
+  width: 50px; 
+  color: black;
+  display: inline-block;
+}
+
+.organiser-menu {
+  display: inline-block;
+}
+
+.end-of-round-message{
+  margin: 0;
+  font-size: 5vw;
+}

@@ -1,0 +1,20 @@
+.player-page{
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  
+  height: 90vh;
+  align-items: center;
+}
+
+.player-timer{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.session-title-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+}

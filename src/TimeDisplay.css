@@ -1,0 +1,19 @@
+
+.timer p{
+  display: inline;
+  font-size: 16vw;
+  margin: 0;
+  padding: 0;
+  line-height: 0.8;
+}
+
+.roboto-mono-for-numbers {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.endColor p{
+  color: black; 
+}

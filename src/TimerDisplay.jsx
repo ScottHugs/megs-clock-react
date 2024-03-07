@@ -1,4 +1,4 @@
-
+import './TimeDisplay.css'
 
 export default function TimerDisplay( {remainingMilliseconds} ) {
 
@@ -8,13 +8,21 @@ export default function TimerDisplay( {remainingMilliseconds} ) {
 
   let seconds = String((totalSeconds % 60)).padStart(2, '0')
   let minutes = String((totalMinutes % 60)).padStart(2, '0')
-  let hours = String((totalHours % 24)).padStart(2, '0')
+  let hours = String((totalHours % 24))
 
+  let isHoursLeft = remainingMilliseconds >= 60 * 60 * 1000
+  let isMinutesLeft = remainingMilliseconds >= 60 * 1000
+  let isSecondsLeft = remainingMilliseconds > 0
 
+  let classNameRoundEnd = remainingMilliseconds === 0 ? "endColor" : ""
   
   return(
-    <section className="timer">
-      <h1>{hours} : {minutes} : {seconds}</h1>
+    <section className={`timer ${classNameRoundEnd}`}>
+        {isHoursLeft&&
+          <p className='roboto-mono-for-numbers'>{hours}:</p>
+        }
+        <p className='roboto-mono-for-numbers'>{minutes}:{seconds}</p>
+    
     </section>
   )
 }

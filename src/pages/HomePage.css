@@ -1,0 +1,22 @@
+
+.home-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 38vh;
+}
+
+h1 {
+  margin: 10px;
+  font-size: 13vh;
+}
+
+button {
+  margin: 5px;
+  width: 150px;
+}
+
+.clock-symbol {
+  vertical-align: top;
+  margin-top: 1.05em;
+}

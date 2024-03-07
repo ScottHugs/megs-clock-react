@@ -1,0 +1,9 @@
+.join-session{
+  grid: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.join-session button {
+  margin: 10px;
+}

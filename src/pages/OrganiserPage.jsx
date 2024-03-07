@@ -3,6 +3,11 @@ import { Link, useNavigate} from 'react-router-dom'
 import TimerDisplay from '../TimerDisplay'
 import SetupOptions from "../SetupOptions"
 import OrganiserMenu from "../OrganiserMenu"
+import './OrganiserPage.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
+const menuIcon = <FontAwesomeIcon icon={faBars} />
 
 export default function App({ socket }) {
 
@@ -71,6 +76,7 @@ export default function App({ socket }) {
   function restartTime() {
     setTime(setupOptions.time)
     socket.emit('update_time', setupOptions.time, setupOptions.key)
+    setIsEndOfRound (false)
   }
 
   function timerToZero() {
@@ -97,60 +103,71 @@ export default function App({ socket }) {
     ? "will begin shortly."
     : ""
 
-    let isFinished = isEndOfRound && (currentRound == setupOptions.rounds)
+  let isFinished = isEndOfRound && (currentRound == setupOptions.rounds)
 
+  let classNameNoRounds = isRoundsDisplayed ? "" : "bottom-margin"
 
   return (
-    <section className="app">
+    <section className="organiser-page">
       <nav className='home-nav'>
         <Link to='/'>Home</Link>
       </nav>
 
       { isHostingSession && 
-        <section>
-          <h2>{setupOptions.name}</h2>
-          <h4>Session Key: {setupOptions.key}</h4>
+        <section className="session-title-area">
+          <h2 className="session-name">{setupOptions.name}</h2>
+          <h4 className="session-key">Session Key: {setupOptions.key}</h4>
         </section> 
       }
 
-      { isEndOfRound&&
-        <h2 className="end-of-round-message">THAT'S TIME!</h2>  
-      }
 
-      { isHostingSession 
-          ? <TimerDisplay remainingMilliseconds={time}/>
-          : <SetupOptions setSetupOptions={setSetupOptions} />
-      }
+      <div className={`time-round-wrapper ${classNameNoRounds}`}>
+        { isEndOfRound&&
+          <h2 className="end-of-round-message">THAT'S TIME!</h2>  
+        }
+        { isHostingSession 
+            ? <TimerDisplay remainingMilliseconds={time}/>
+            : <SetupOptions setSetupOptions={setSetupOptions} />
+        }
 
-      { isRoundsDisplayed &&
-        <h3>Round {currentRound} {roundStartDisplayMessage}</h3>
-      }
+        { isRoundsDisplayed &&
+          <h3 className="round">Round {currentRound} {roundStartDisplayMessage}</h3>
+        }
+      </div>
       
-      { !isRoundInProgress && isHostingSession &&
-        <button onClick={startRound}>Start Round</button> 
-      }
+      <div className="buttons">
 
-      { isRoundInProgress && isHostingSession &&
-        <button onClick={handleMenuOn}>Menu</button>
-      }
+        { !isRoundInProgress && isHostingSession &&
+          <button className="start-round-btn" onClick={startRound}>Start Round</button> 
+        }
 
-      { isEndOfRound&&!isFinished&&
-        <button onClick={handleNextRound}>Next Round</button> 
-      }
+        { isEndOfRound&&!isFinished&&
+          <button className="end-of-round-btn" onClick={handleNextRound}>Next Round</button> 
+        }
 
-      { isFinished&&
-        <button onClick={handleEndSession}>End Session</button>
-      }
+        { isFinished&&
+          <button className="end-of-round-btn" onClick={handleEndSession}>End Session</button>
+        }
 
-      { isMenuOn&&
-      <OrganiserMenu 
-        stopTimer={stopTimer} 
-        startNewTimer={startNewTimer} 
-        restartTime={restartTime} 
-        timerToZero={timerToZero}
-        setIsEndOfRound={setIsEndOfRound}
-      />
-      }
+        <div className="menus">
+          { isMenuOn&&
+            <div className="organiser-menu">
+              <OrganiserMenu 
+                stopTimer={stopTimer} 
+                startNewTimer={startNewTimer} 
+                restartTime={restartTime} 
+                timerToZero={timerToZero}
+                setIsEndOfRound={setIsEndOfRound}
+                />
+            </div>
+          }
+          { isHostingSession &&
+            <button className='menu-btn' onClick={handleMenuOn}>{menuIcon}</button>
+          }
+        </div>
+      </div>
+
+
     </section> 
 
     

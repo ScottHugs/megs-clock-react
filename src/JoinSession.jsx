@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './JoinSession.css'
 
 export default function JoinSession({ setSessionKey }) {
 
@@ -15,10 +16,12 @@ export default function JoinSession({ setSessionKey }) {
   }
 
   return(
-    <section>
+    <section className="join-session">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="">Enter Session Key:</label>
-        <input onChange={handleChange} type="text" />
+        <div className="join-input">
+          <label htmlFor="">Enter Session Key:</label>
+          <input onChange={handleChange} type="text" />
+        </div>
         <button>Join Session</button>
       </form>
     </section>

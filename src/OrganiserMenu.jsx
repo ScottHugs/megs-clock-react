@@ -35,7 +35,7 @@ export default function OrganiserMenu ({ stopTimer, startNewTimer, restartTime, 
   }
 
   return(
-    <section className="organiser-menu">
+    <section className="organiser-menu-btns">
       <button onClick={handleStop}>{stopButtonWord}</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleEnd}>End</button>
