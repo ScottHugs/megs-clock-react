@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function OrganiserMenu ({ stopTimer, startNewTimer, restartTime, timerToZero }) {
+export default function OrganiserMenu ({ stopTimer, startNewTimer, restartTime, timerToZero, setIsEndOfRound }) {
 
   const [isStopped, setIsStopped] = useState(false)
 
@@ -31,6 +31,7 @@ export default function OrganiserMenu ({ stopTimer, startNewTimer, restartTime, 
   function handleEnd() {
     stopTimer()
     timerToZero()
+    setIsEndOfRound(true)
   }
 
   return(

@@ -6,7 +6,8 @@ export default function SetupOptions({ setSetupOptions }){
   const [formData, setFormData] = useState({
     name: "",
     key: "",
-    time: ""
+    time: "",
+    rounds:""
   })
 
   function handleChange(e){
@@ -31,6 +32,8 @@ export default function SetupOptions({ setSetupOptions }){
         <input name='key' onChange={handleChange} type="text" value={formData.key}/>
         <label>Round Time:</label>
         <input name='time' onChange={handleChange} value={formData.time} type="number" />
+        <label>Number of Rounds:</label>
+        <input name='rounds' onChange={handleChange} value={formData.rounds} type="number" />
         <button>Create Session</button>
       </form>
     </section>

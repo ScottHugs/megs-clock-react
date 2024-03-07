@@ -9,26 +9,41 @@ export default function App({ socket }) {
   const [setupOptions, setSetupOptions] = useState({
     name: "",
     key: "",
-    time: 0
+    time: 0,
+    rounds: 0
   })
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [isHostingSession, setIsHostingSession] = useState(false)
   const [isRoundInProgress, setIsRoundInProgress] = useState(false)
+  const [isEndOfRound, setIsEndOfRound] = useState(false)
   const [isMenuOn, setIsMenuOn] = useState(false)
 
   const [time, setTime] = useState(setupOptions.time);
+  const [currentRound, setCurrentRound] = useState(1)
 
   useEffect(() => {
+
     socket.on('recieve_time', (data) => {
       setTime(data)
+      if (data === 0) {
+        setIsEndOfRound(true)
+      }
     })
+
+    socket.on('is_round_in_progress', (bool) => {
+      setIsRoundInProgress(bool)
+    })
+
+    socket.on('set_round', (round) => {
+      setCurrentRound(round)
+    })
+
   }, [socket])
 
   useEffect(() => {
     if (!isFirstLoad) {
       console.log(setupOptions)
       setIsHostingSession(true)
-      // socket.emit("join_room", setupOptions.key)
       socket.emit("setup_options", setupOptions)
     } else {
       setIsFirstLoad(false)
@@ -37,7 +52,6 @@ export default function App({ socket }) {
 
   function startRound(){
       socket.emit('start_timer', setupOptions.key)
-      setIsRoundInProgress(true)
   }
 
   function startNewTimer() {
@@ -62,6 +76,26 @@ export default function App({ socket }) {
     setIsMenuOn(!isMenuOn)
   }
 
+  function handleNextRound() {
+    socket.emit('next_round', setupOptions.key)
+    setIsEndOfRound(false)
+  }
+
+  function handleEndSession() {
+
+  }
+
+  let isRoundsDisplayed = setupOptions.rounds > 1
+
+  let roundStartDisplayMessage = isHostingSession && !isRoundInProgress 
+    ? "will begin shortly."
+    : ""
+
+    let isFinished = isEndOfRound && (currentRound == setupOptions.rounds)
+    console.log(currentRound)
+    console.log(setupOptions.rounds)
+    console.log(isFinished)
+
 
   return (
     <section className="app">
@@ -70,12 +104,23 @@ export default function App({ socket }) {
       </nav>
 
       { isHostingSession && 
-        <h2>{setupOptions.name}</h2>
+        <section>
+          <h2>{setupOptions.name}</h2>
+          <h4>Session Key: {setupOptions.key}</h4>
+        </section> 
+      }
+
+      { isEndOfRound&&
+        <h2 className="end-of-round-message">THAT'S TIME!</h2>  
       }
 
       { isHostingSession 
           ? <TimerDisplay remainingMilliseconds={time}/>
           : <SetupOptions setSetupOptions={setSetupOptions} />
+      }
+
+      { isRoundsDisplayed &&
+        <h3>Round {currentRound} {roundStartDisplayMessage}</h3>
       }
       
       { !isRoundInProgress && isHostingSession &&
@@ -86,12 +131,21 @@ export default function App({ socket }) {
         <button onClick={handleMenuOn}>Menu</button>
       }
 
+      { isEndOfRound&&!isFinished&&
+        <button onClick={handleNextRound}>Next Round</button> 
+      }
+
+      { isFinished&&
+        <button onClick={handleEndSession}>End Session</button>
+      }
+
       { isMenuOn&&
       <OrganiserMenu 
         stopTimer={stopTimer} 
         startNewTimer={startNewTimer} 
         restartTime={restartTime} 
         timerToZero={timerToZero}
+        setIsEndOfRound={setIsEndOfRound}
       />
       }
     </section> 
