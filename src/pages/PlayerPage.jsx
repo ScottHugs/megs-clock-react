@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import JoinSession from '../JoinSession'
 import TimerDisplay from '../TimerDisplay'
 
@@ -15,6 +15,8 @@ export default function PlayerPage({ socket }) {
   const [time, setTime] = useState(0);
   const [sessionName, setSessionName] = useState('')
   const [currentRound, setCurrentRound] = useState(0)
+
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -46,6 +48,10 @@ export default function PlayerPage({ socket }) {
     socket.on('is_round_in_progress', (bool) =>{
       setIsRoundInProgress(bool)
     })
+
+    socket.on('session_ended', (sessionName) => {
+      navigate(`/session_ended/${sessionName}`)
+    })
   }, [socket])
 
   let isRoundsDisplayed = currentRound > 0
@@ -67,7 +73,7 @@ export default function PlayerPage({ socket }) {
       { isEndOfRound&&
         <h2 className="end-of-round-message">THAT'S TIME!</h2>  
       }
-      
+
       { !isInSession
         ?< JoinSession setSessionKey={setSessionKey}/> 
         :< TimerDisplay remainingMilliseconds={time}/> 

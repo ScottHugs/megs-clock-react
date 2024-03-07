@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import TimerDisplay from '../TimerDisplay'
 import SetupOptions from "../SetupOptions"
 import OrganiserMenu from "../OrganiserMenu"
@@ -21,6 +21,8 @@ export default function App({ socket }) {
   const [time, setTime] = useState(setupOptions.time);
   const [currentRound, setCurrentRound] = useState(1)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
 
     socket.on('recieve_time', (data) => {
@@ -36,6 +38,10 @@ export default function App({ socket }) {
 
     socket.on('set_round', (round) => {
       setCurrentRound(round)
+    })
+
+    socket.on('session_ended', (sessionName) => {
+      navigate(`/session_ended/${sessionName}`)
     })
 
   }, [socket])
@@ -82,7 +88,7 @@ export default function App({ socket }) {
   }
 
   function handleEndSession() {
-
+    socket.emit('end_session', setupOptions.key)
   }
 
   let isRoundsDisplayed = setupOptions.rounds > 1
@@ -92,9 +98,6 @@ export default function App({ socket }) {
     : ""
 
     let isFinished = isEndOfRound && (currentRound == setupOptions.rounds)
-    console.log(currentRound)
-    console.log(setupOptions.rounds)
-    console.log(isFinished)
 
 
   return (
