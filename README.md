@@ -1,8 +1,58 @@
-# React + Vite
+# Megs' Clock
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Megs Clock is a countdown timer which can be synchronised and aligned with for personal reference to a specific countdown time. It uses websocket, server side design with the socket.io library. 
+Playing a TCG, starting a group test or playing some weekend warrior soccer and need to know how many precious seconds you have to score 4 goals for the win? Check out Meg's Clock
 
-Currently, two official plugins are available:
+![Screenshot1](/react-megs-clock/public/screenshot1.png)
+![Screenshot2](/react-megs-clock/public/screenshot2.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## About
+- Create a session with a unique session key for others to join, or...
+- Join a session to keep up to date with the time left in the round. 
+
+## Planning and Problem Solving 
+- Designing with best practice in mind, the idea was that many people could join a particular timed session, for example in the case of... i don't know, a yugioh YCS event...? Therefore a 'restful' server design was not ideal. Therefore the idea of websockets was used. 
+- Socket.io was used as it provided many beneficial built in features, primarily the idea of rooms. As the app is simpler in nature, design experience was priorotised over flexibilty and specificity. 
+- Wireframes and Trello kept me on track.
+
+![Wireframe1](/react-megs-clock/public/wireframe1_MClck.jpg)
+![Wireframe2](/react-megs-clock/public/wireframe2_MClck.jpg)
+![Trello](/react-megs-clock/public/trelloToDos.png)
+
+- Early steps mainly involved research into websockets as that was new for me, then getting MVP which was a serverside clock with a session that another player could join. Then came a few features and the start of some cleanup and attempting to make the clock more robust with a better UX
+
+## Tech
+
+- REACT
+- JavaScript
+- HTML
+- CSS
+
+- Node.js
+- socket.io
+
+- express
+- nodemon (for dev only) 
+
+- Fontawesome
+- Googlefonts... kinf off
+
+# Bugs to fix
+- If the room is not set up correctly (every field entered) it can have odd displays. 
+- Needs error handling
+
+# Lessons learnt
+- The consept of websockets and a different server side deign
+- CSS is a puzzle to solve and there are bad ways and a right way
+- Fontawesome and using react icons
+- Better understanding of react and especially react-routers
+
+## Future features
+- Error handling
+- decent css
+- player calculator
+- login functionality
+- better clock (maybe not javascript)
+- a db to save scores and session histories
+- count in timer for the round
+- add 'adjust time' the organiser menu
