@@ -8,7 +8,7 @@ import io from 'socket.io-client'
 import SessionEndedPage from './pages/SessionEndedPage'
 
 
-const socket=io.connect('http://localhost:3365')
+const socket=io.connect('/')
 
 function App() {
 
