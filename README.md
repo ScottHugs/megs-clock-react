@@ -3,6 +3,8 @@
 Megs Clock is a countdown timer which can be synchronised and aligned with for personal reference to a specific countdown time. It uses websocket, server side design with the socket.io library. 
 Playing a TCG, starting a group test or playing some weekend warrior soccer and need to know how many precious seconds you have to score 4 goals for the win? Check out Meg's Clock
 
+This is the react repo where you can see what is happening client side. If you want to see the code for the server and checkout some websocket techiness, check [this](https://github.com/ScottHugs/megs-clock-server) repo out!
+
 ![Screenshot1](./public/screenshot1.png)
 ![Screenshot2](./public/screenshot2.png)
 
